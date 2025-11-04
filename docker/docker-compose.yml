@@ -1,0 +1,59 @@
+# docker-compose.yml
+services:
+  langflow:
+    # Imagem do Langflow (use 'latest' para versão mais recente)
+    # Outras versões disponíveis em: https://hub.docker.com/r/langflowai/langflow
+    image: langflowai/langflow:latest
+    
+    # Sempre fazer pull da imagem (garante versão mais recente)
+    pull_policy: always
+    
+    # Carregar variáveis de ambiente do arquivo .env
+    env_file:
+      - docker.env
+    
+    # Porta de acesso: http://seu-vps:7860
+    ports:
+      - "7860:7860"
+    
+    # Langflow depende do PostgreSQL estar rodando antes
+    depends_on:
+      - postgres
+    
+    # Variáveis de ambiente que sobrescrevem o .env (se necessário)
+    environment:
+      - LANGFLOW_DATABASE_URL=postgresql://langflow:langflow@postgres:5432/langflow # URL de conexão com banco de dados PostgreSQL
+      - LANGFLOW_CONFIG_DIR=/app/langflow #diretório onde Langflow armazena dados, logs, cache
+    
+    # Volumes: persistir dados entre restarts
+    volumes:
+      - langflow-data:/app/langflow # armazena banco de dados, logs, cache, keys
+    
+    # Política de restart: reinicia automaticamente quando cai ou quando VPS reinicia
+    restart: unless-stopped # com "unless-stopped" mantém Langflow sempre online, buscando reiniciar automaticamente os componentes que caírem (crucial para agentes 24/7)
+  postgres:
+    # Banco de dados PostgreSQL versão 16
+    image: postgres:16
+    
+    # Configurações do banco de dados
+    environment:
+      POSTGRES_USER: langflow
+      POSTGRES_PASSWORD: langflow
+      POSTGRES_DB: langflow
+    
+    # Porta do PostgreSQL (5432 é padrão)
+    # Acesso interno ao container: postgres:5432
+    # Acesso externo (seu PC): localhost:5432 (opcional, para debug)
+    ports:
+      - "5432:5432"
+    
+    # Volume: persistir dados do banco entre restarts
+    volumes:
+      - langflow-postgres:/var/lib/postgresql/data # volume com os dados das tabelas, índices, etc
+    
+    # Política de restart do PostgresSQL: igual ao Langflow (reinicializações automáticas - sempre online)
+    restart: unless-stopped
+# Volumes nomeados: persistência de dados
+volumes:
+  langflow-postgres: # Volume do PostgreSQL: armazena banco de dados permanentemente
+  langflow-data: # Volume do Langflow: armazena dados, logs, cache, configurações
