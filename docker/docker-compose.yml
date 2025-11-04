@@ -23,8 +23,6 @@ services:
     
     # Executar container como root para resolver permission denied ao escrever secret_key
     user: root
-
-    
     
     # Variáveis de ambiente que sobrescrevem o .env (se necessário)
     environment:
@@ -59,10 +57,6 @@ services:
     # Volume: persistir dados do banco entre restarts
     volumes:
       - langflow-postgres:/var/lib/postgresql/data # volume com os dados das tabelas, índices, etc
-
-    
-    # Política de restart do PostgresSQL: igual ao Langflow (reinicializações automáticas - sempre online)
-    restart: unless-stopped
 
 # Volumes nomeados: persistência de dados
 volumes:
