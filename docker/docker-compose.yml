@@ -23,11 +23,14 @@ services:
     
     # Executar container como root para resolver permission denied ao escrever secret_key
     user: root
+
+    
     
     # Variáveis de ambiente que sobrescrevem o .env (se necessário)
     environment:
       - LANGFLOW_DATABASE_URL=postgresql://langflow:langflow@postgres:5432/langflow # URL de conexão com banco de dados PostgreSQL
       - LANGFLOW_CONFIG_DIR=/app/langflow #diretório onde Langflow armazena dados, logs, cache
+      - DO_NOT_TRACK=true # variável para parar a coleta de dados que a plataforma envia direto para o time do LangFlow
     
     # Volumes: persistir dados entre restarts
     volumes:
