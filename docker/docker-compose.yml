@@ -15,6 +15,9 @@ services:
     # Porta de acesso: http://seu-vps:7860
     ports:
       - "7860:7860"
+      
+    # executar o container como root  (importante para algumas permissões de leitura/escrita de arquivos) 
+    user: root  
     
     # Langflow depende do PostgreSQL estar rodando antes
     depends_on:
@@ -46,6 +49,10 @@ services:
     # Acesso externo (seu PC): localhost:5432 (opcional, para debug)
     ports:
       - "5432:5432"
+      
+    # Volume: persistir dados do banco entre restarts
+      - langflow-postgres:/var/lib/postgresql/data # volume com os dados das tabelas, índices, etc
+    volumes:
     
     # Volume: persistir dados do banco entre restarts
     volumes:
