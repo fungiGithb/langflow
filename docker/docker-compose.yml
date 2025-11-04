@@ -10,7 +10,7 @@ services:
     
     # Carregar variáveis de ambiente do arquivo .env
     env_file:
-      - docker.env
+      - .env
     
     # Porta de acesso: http://seu-vps:7860
     ports:
