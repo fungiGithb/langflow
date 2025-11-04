@@ -51,8 +51,6 @@ services:
     volumes:
       - langflow-postgres:/var/lib/postgresql/data # volume com os dados das tabelas, índices, etc
     
-    # Política de restart do PostgresSQL: igual ao Langflow (reinicializações automáticas - sempre online)
-    restart: unless-stopped
 # Volumes nomeados: persistência de dados
 volumes:
   langflow-postgres: # Volume do PostgreSQL: armazena banco de dados permanentemente
