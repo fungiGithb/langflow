@@ -28,5 +28,16 @@ ENV LANGFLOW_LOG_ENV=container
 
 EXPOSE 7860
 
-# Modo apenas backend. Remova o "--backend-only" se quiser também a interface visual
-CMD ["langflow", "run", "--backend-only", "--env-file", "/app/.env", "--host", "0.0.0.0", "--port", "7860"]
+# "CMD": Dados de execução - comando principal que será executado quando o container iniciar
+CMD ["langflow", "run", "--env-file", "/app/.env", "--host", "0.0.0.0", "--port", "7860"]
+
+# "langflow run": Inicia o servidor LangFlow
+# "--env-file /app/.env": Carrega variáveis de ambiente do arquivo .env
+# "--host 0.0.0.0": Escuta em todos os endereços de rede (necessário para acesso externo)
+# "--port 7860": Define a porta de escuta como 7860
+
+# OBSERVAÇÃO SOBRE MODO DE EXECUÇÃO:
+# Atualmente: Esta configuração executa backend + frontend, permitindo acesso à interface visual em http://0.0.0.0:7860/
+# Para modo APENAS backend (sem interface visual): Adicione a flag "--backend-only" ao comando acima
+# Exemplo: CMD ["langflow", "run", "--backend-only", "--env-file", "/app/.env", "--host", "0.0.0.0", "--port", "7860"]
+# Use modo backend-only se estiver integrando via API com outras aplicações
