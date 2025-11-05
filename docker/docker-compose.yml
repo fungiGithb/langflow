@@ -24,7 +24,7 @@ services:
     # Variáveis de ambiente que sobrescrevem o .env (se necessário)
     environment:
       - LANGFLOW_DATABASE_URL=postgresql://langflow:langflow@postgres:5432/langflow # URL de conexão com banco de dados PostgreSQL
-      - LANGFLOW_CONFIG_DIR=/app/langflow #diretório onde Langflow armazena dados, logs, cache
+      - LANGFLOW_CONFIG_DIR=/app/langflow-config-dir #diretório onde Langflow armazena dados, logs, cache
 
    # CATEGORIA: CONFIGURAÇÃO BASE - environment (.env)
       - LANGFLOW_CONFIG_DIR=${LANGFLOW_CONFIG_DIR}
