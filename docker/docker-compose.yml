@@ -4,7 +4,7 @@ services:
   langflow:
     # Imagem do Langflow (use 'latest' para versão mais recente)
     # Outras versões disponíveis em: [https://hub.docker.com/r/langflowai/langflow](https://hub.docker.com/r/langflowai/langflow)
-    image: langflowai/langflow:latest
+    image: langflowai/langflow:1.6.5
     
     # Sempre fazer pull da imagem (garante versão mais recente)
     pull_policy: always
